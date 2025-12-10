@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ReviewFlow — Submit Feedback</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Submit your feedback to ReviewFlow. Quick, simple, mobile-friendly feedback system by Vintech." />
+  <meta name="keywords" content="ReviewFlow, feedback, Vintech, customer reviews, customer experience" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="ReviewFlow — Submit Feedback" />
+  <meta property="og:description" content="Share your experience with Vintech through ReviewFlow. Your feedback helps us improve." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy:#0A2540;
+      --orange:#FF7A00;
+      --muted:#6B7280;
+      --light:#FFFFFF;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:"Inter",sans-serif;background:#F8F9FB;color:var(--navy);}
+    header{background:var(--navy);color:white;text-align:center;padding:30px 20px;animation:fadeIn 1s ease;}
+    .logo{width:60px;height:60px;margin:0 auto 12px;border-radius:14px;background:linear-gradient(135deg,var(--orange),#FF9A3A);display:flex;justify-content:center;align-items:center;font-weight:700;font-size:22px;color:white;box-shadow:0 6px 22px rgba(255,122,0,0.25);}
+    .brand-title{font-size:28px;font-weight:700;margin-bottom:6px;animation:fadeIn 1.2s ease;}
+    .brand-sub{font-size:14px;opacity:0.9;animation:fadeIn 1.4s ease;}
+
+    main{padding:40px 20px;max-width:480px;margin:auto;animation:fadeIn 1.6s ease;}
+    .main-title{font-size:22px;font-weight:700;margin-bottom:12px;text-align:center;}
+    .desc{font-size:14px;color:var(--muted);margin-bottom:24px;text-align:center;}
+
+    form{display:flex;flex-direction:column;gap:16px;animation:fadeInUp 1s ease;}
+    input,textarea{padding:12px;border-radius:12px;border:1px solid #E5E7EB;font-size:14px;transition:0.2s;}
+    input:focus,textarea:focus{border-color:var(--orange);outline:none;transform:scale(1.02);}
+    textarea{resize:none;min-height:100px;}
+    button{padding:12px;font-weight:700;border:none;border-radius:12px;background:var(--orange);color:#fff;font-size:15px;cursor:pointer;transition:0.2s;}
+    button:hover{transform:scale(1.03);}
+    .msg{display:none;text-align:center;font-size:14px;}
+    .success{color:green;}
+    .error{color:red;}
+
+    footer{background:var(--navy);color:white;text-align:center;padding:16px;margin-top:30px;font-size:12px;animation:fadeIn 1.8s ease;}
+
+    /* Animations */
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+    @media (max-width: 600px){
+      main{padding:30px 16px;}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo">RF</div>
+    <div class="brand-title">ReviewFlow</div>
+    <div class="brand-sub">We value your experience</div>
+  </header>
+
+  <main>
+    <p class="main-title">Tell us about your experience</p>
+    <p class="desc">All fields are required to help us improve.</p>
+
+    <form id="feedbackForm">
+      <input type="text" id="firstName" placeholder="First Name" required>
+      <input type="text" id="lastName" placeholder="Last Name" required>
+      <input type="email" id="email" placeholder="Academy Email" required>
+      <input type="tel" id="mobile" placeholder="Mobile Number" required pattern="[0-9]{10,15}">
+      <textarea id="experience" placeholder="Tell us your experience" required></textarea>
+      <button type="button" id="submitBtn">Submit Feedback</button>
+    </form>
+
+    <p id="successMsg" class="msg success">Thank you! Your feedback has been submitted.</p>
+    <p id="errorMsg" class="msg error"></p>
+  </main>
+
+  <footer>
+    © <span id="year"></span> ReviewFlow — Powered by Vintech Digital Services
+  </footer>
+
+  <script type="module">
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAsHWoM6uvJeeMbsG78KB-_WniTVuz43kQ",
+      authDomain: "reviewflow-37d89.firebaseapp.com",
+      projectId: "reviewflow-37d89",
+      storageBucket: "reviewflow-37d89.firebasestorage.app",
+      messagingSenderId: "188531743120",
+      appId: "1:188531743120:web:26b8435ac7508722fcfb15"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function submitFeedback(){
+      const firstName = document.getElementById("firstName").value.trim();
+      const lastName = document.getElementById("lastName").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const mobile = document.getElementById("mobile").value.trim();
+      const experience = document.getElementById("experience").value.trim();
+      const successMsg = document.getElementById("successMsg");
+      const errorMsg = document.getElementById("errorMsg");
+
+      if(!firstName || !lastName || !email || !mobile || !experience){
+        errorMsg.textContent = "Please fill all fields";
+        errorMsg.style.display = "block";
+        successMsg.style.display = "none";
+        return;
+      }
+
+      try{
+        // Disable button while submitting
+        const btn = document.getElementById("submitBtn");
+        btn.disabled = true;
+        btn.textContent = "Submitting...";
+
+        await addDoc(collection(db,"feedback"),{
+          firstName,
+          lastName,
+          email,
+          mobile,
+          experience,
+          createdAt: serverTimestamp()
+        });
+
+        // Redirect to Thank You page
+        window.location.href = "thankyou.html";
+      }catch(err){
+        console.error("Error submitting feedback:",err);
+        errorMsg.textContent = "Something went wrong. Try again.";
+        errorMsg.style.display = "block";
+        successMsg.style.display = "none";
+        document.getElementById("submitBtn").disabled = false;
+        document.getElementById("submitBtn").textContent = "Submit Feedback";
+      }
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", submitFeedback);
+  </script>
+</body>
+</html>
