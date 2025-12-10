@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ReviewFlow — Admin Panel</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Admin panel for ReviewFlow. View all customer feedback submissions in real-time." />
+  <meta name="keywords" content="ReviewFlow, admin, feedback, Vintech, reviews" />
+  <meta name="robots" content="noindex,nofollow" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background: #F8F9FB;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #0A2540;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .feedback-item {
+      background: #fff;
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+
+    .feedback-item:hover {
+      transform: translateY(-2px);
+    }
+
+    .feedback-header {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .feedback-field {
+      color: #0A2540;
+    }
+
+    .feedback-experience {
+      margin: 8px 0;
+      color: #6B7280;
+    }
+
+    .feedback-timestamp {
+      font-size: 12px;
+      color: #6B7280;
+    }
+
+    @media(max-width:600px){
+      .feedback-header {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ReviewFlow Admin Panel</h1>
+  </header>
+
+  <main>
+    <p>All feedback submissions are listed below.</p>
+    <div id="feedbackContainer">
+      <!-- Feedback items will populate here -->
+    </div>
+  </main>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAsHWoM6uvJeeMbsG78KB-_WniTVuz43kQ",
+      authDomain: "reviewflow-37d89.firebaseapp.com",
+      projectId: "reviewflow-37d89",
+      storageBucket: "reviewflow-37d89.firebasestorage.app",
+      messagingSenderId: "188531743120",
+      appId: "1:188531743120:web:26b8435ac7508722fcfb15"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const container = document.getElementById("feedbackContainer");
+
+    const q = query(collection(db, "feedback"), orderBy("createdAt", "desc"));
+
+    onSnapshot(q, snapshot => {
+      container.innerHTML = ""; // clear previous
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        const item = document.createElement("div");
+        item.className = "feedback-item";
+
+        item.innerHTML = `
+          <div class="feedback-header">
+            <div class="feedback-field">Name: ${data.firstName || ""} ${data.lastName || ""}</div>
+            <div class="feedback-field">Email: ${data.email || ""}</div>
+            <div class="feedback-field">Mobile: ${data.mobile || ""}</div>
+          </div>
+          <div class="feedback-experience">Experience: ${data.experience || ""}</div>
+          <div class="feedback-timestamp">Submitted At: ${data.createdAt ? new Date(data.createdAt.seconds*1000).toLocaleString() : ""}</div>
+        `;
+
+        container.appendChild(item);
+      });
+    });
+  </script>
+</body>
+</html>
