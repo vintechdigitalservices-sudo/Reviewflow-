@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ReviewFlow — Admin Login</title>
+  <style>
+    body{font-family:sans-serif;background:#F8F9FB;display:flex;justify-content:center;align-items:center;height:100vh;}
+    .login-box{background:#fff;padding:30px;border-radius:16px;box-shadow:0 6px 22px rgba(0,0,0,0.1);width:90%;max-width:360px;position:relative;}
+    input{width:100%;padding:12px;margin-bottom:16px;border:1px solid #ccc;border-radius:12px;font-size:14px;}
+    .password-container{position:relative;}
+    .toggle-eye{position:absolute;top:50%;right:12px;transform:translateY(-50%);cursor:pointer;font-size:16px;color:#666;}
+    button{width:100%;padding:12px;background:#FF7A00;color:#fff;font-weight:700;border:none;border-radius:12px;cursor:pointer;}
+    button:hover{transform:scale(1.03);}
+    .error{color:red;font-size:14px;text-align:center;display:none;margin-bottom:8px;}
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2 style="text-align:center;margin-bottom:16px;">Admin Login</h2>
+    <p class="error" id="errorMsg">Invalid credentials</p>
+    <input type="email" id="adminEmail" placeholder="Email" required>
+
+    <div class="password-container">
+      <input type="password" id="adminPassword" placeholder="Password" required>
+      <span class="toggle-eye" id="toggleEye">👁️</span>
+    </div>
+
+    <button onclick="login()">Login</button>
+  </div>
+
+  <script>
+    const toggleEye = document.getElementById("toggleEye");
+    const passwordInput = document.getElementById("adminPassword");
+
+    toggleEye.addEventListener("click", () => {
+      if(passwordInput.type === "password"){
+        passwordInput.type = "text";
+        toggleEye.textContent = "🙈";
+      } else {
+        passwordInput.type = "password";
+        toggleEye.textContent = "👁️";
+      }
+    });
+
+    function login(){
+      const email = document.getElementById("adminEmail").value.trim();
+      const password = passwordInput.value.trim();
+      const errorMsg = document.getElementById("errorMsg");
+
+      // Hardcoded credentials
+      if(email === "vintechdigitalservices@gmail.com" && password === "vintechd12345"){
+        // Successful login → redirect to admin panel
+        window.location.href = "admin-panel.html";
+      } else {
+        errorMsg.style.display = "block";
+      }
+    }
+  </script>
+</body>
+</html>
