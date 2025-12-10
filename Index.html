@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ReviewFlow — Quick Customer Feedback & Reviews</title>
+  <meta name="description" content="ReviewFlow by Vintech — Make it easy for customers to leave reviews. One-tap review link for happy customers and a simple feedback form for improvements." />
+  <meta name="keywords" content="customer reviews, feedback form, google reviews, business reviews, ReviewFlow, Vintech" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ReviewFlow — Quick Customer Feedback & Reviews" />
+  <meta property="og:description" content="One-tap review link for happy customers and an easy feedback form for improvements. Built by Vintech." />
+  <meta property="og:url" content="/" />
+  <meta property="og:image" content="https://yourdomain.com/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ReviewFlow — Quick Customer Feedback & Reviews" />
+  <meta name="twitter:description" content="One-tap review link for happy customers and an easy feedback form for improvements. Built by Vintech." />
+  <meta name="twitter:image" content="https://yourdomain.com/og-image.png" />
+
+  <meta name="theme-color" content="#0A2540" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --color-white: #FFFFFF;
+      --color-navy: #0A2540;
+      --color-orange: #FF7A00;
+      --color-muted: #6B7280;
+      --color-bg-light: #F9FAFB;
+      --color-card-bg: #FFFFFF;
+      --color-border: rgba(10,37,64,0.1);
+      --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --border-radius: 12px;
+      --max-width: 800px;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { height: 100%; margin:0; font-family: var(--font-body); background-color: var(--color-bg-light); color: var(--color-navy); }
+    .page { width:100%; max-width: var(--max-width); min-height:100vh; display:flex; flex-direction:column; background: var(--color-white); margin:auto; box-shadow:0 4px 60px rgba(10,37,64,0.06); }
+
+    /* Header */
+    header{background: var(--color-navy); color: var(--color-white); padding:16px 24px; display:flex; align-items:center; gap:12px; justify-content:space-between;}
+    .logo { width:40px; height:40px; border-radius:8px; background: linear-gradient(135deg,var(--color-orange),#FF9A3A); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:16px;}
+    .brand-wrap { display:flex; flex-direction:column; }
+    .brand{ font-size:18px; font-weight:700; line-height:1.2; }
+    .sub{ font-size:12px; opacity:0.8; line-height:1.2; }
+    .admin-btn{ border:2px solid var(--color-white); padding:6px 12px; border-radius:8px; color: var(--color-white); text-decoration:none; font-weight:600; transition: all .2s ease; }
+    .admin-btn:hover{ background: var(--color-white); color: var(--color-navy); }
+
+    /* Main */
+    main{padding:40px 24px; flex-grow:1; display:flex; flex-direction:column; align-items:center;}
+    .hero{ display:flex; flex-direction:column; gap:16px; align-items:center; text-align:center; max-width:680px; margin-bottom:40px;}
+    .title{ font-size:clamp(24px,4vw,32px); font-weight:800; margin:0;}
+    .desc{ color: var(--color-muted); font-size:16px; margin:0; }
+
+    /* Emoji Grid */
+    .emoji-grid{ display:flex; gap:24px; margin:30px 0; justify-content:center; flex-wrap:wrap; }
+    .card{ background:var(--color-card-bg); border:1px solid var(--color-border); width:160px; border-radius:var(--border-radius); padding:20px 16px; display:flex; flex-direction:column; align-items:center; gap:10px; cursor:pointer; box-shadow:0 1px 3px rgba(10,37,64,0.02),0 8px 15px rgba(10,37,64,0.05); transition: all .2s ease-out; text-align:center; }
+    .card:hover, .card:focus{ transform: translateY(-4px); box-shadow:0 4px 8px rgba(10,37,64,0.05),0 15px 30px rgba(10,37,64,0.1); border-color: rgba(255,122,0,0.4);}
+    .emoji{ font-size:48px; line-height:1; margin-bottom:4px; }
+    .label{ font-weight:700; color:var(--color-navy); font-size:17px; }
+    .hint{ font-size:13px; color:var(--color-muted); }
+
+    /* CTA */
+    .cta-row{ margin-top:24px; display:flex; gap:16px; justify-content:center; align-items:center; flex-wrap:wrap; }
+    .btn{ border:none; padding:14px 24px; border-radius:8px; font-weight:700; cursor:pointer; font-size:16px; display:inline-flex; gap:10px; align-items:center; justify-content:center; text-decoration:none; transition: all .15s ease-out; }
+    .btn:active{ transform: scale(0.98);}
+    .btn-primary{ background:var(--color-orange); color:var(--color-white); background-image:linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.05) 100%); box-shadow:0 6px 15px rgba(255,122,0,0.3);}
+    .btn-primary:hover{ background:#FF881A;}
+    .btn-ghost{ background:var(--color-white); border:1px solid var(--color-border); color:var(--color-navy); box-shadow:0 1px 3px rgba(10,37,64,0.05);}
+    .btn-ghost:hover{ background:var(--color-bg-light); border-color:rgba(10,37,64,0.15); }
+
+    /* Footer */
+    footer{ padding:20px 24px; text-align:center; font-size:13px; color:var(--color-muted); border-top:1px solid var(--color-border); background-color: var(--color-bg-light); line-height:1.5; }
+
+    @media(max-width:600px){
+      main{padding:30px 16px;}
+      .emoji-grid{gap:16px;}
+      .card{ width:45%; max-width:140px; padding:16px 12px;}
+      .cta-row{flex-direction:column;}
+      .btn{ width:100%; max-width:300px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="page" role="main" aria-labelledby="main-title">
+    <header>
+      <div class="logo" aria-hidden="true">RF</div>
+      <div class="brand-wrap">
+        <div class="brand">ReviewFlow</div>
+        <div class="sub">Simple review routing — made by Vintech</div>
+      </div>
+      <a href="admin-login.html" class="admin-btn" aria-label="Admin Login">Admin</a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="main-title">
+        <h1 id="main-title" class="title">How was your experience with <span style="color:var(--color-orange)">Vintech</span>?</h1>
+        <p class="desc">Tap the emoji that matches your experience. Happy customers go to Google Reviews. If something went wrong, tell us — we’ll fix it.</p>
+
+        <div class="emoji-grid" role="list" aria-label="Feedback options">
+          <button class="card is-highlighted" id="happyCard" role="listitem" aria-label="I had a good experience — leave a review">
+            <div class="emoji" aria-hidden="true">🤩</div> 
+            <div class="label">Fantastic!</div>
+            <div class="hint">Leave a review</div>
+          </button>
+
+          <button class="card" id="sadCard" role="listitem" aria-label="I had a bad experience — give feedback">
+            <div class="emoji" aria-hidden="true">😟</div> 
+            <div class="label">Needs Improvement</div>
+            <div class="hint">Tell us what happened</div>
+          </button>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn btn-primary" id="primaryReview" href="https://g.page/r/CbiVnwImjaQKEBM/review" rel="noopener" aria-label="Leave a Google review for Vintech">
+            Review Now
+          </a>
+          <a class="btn btn-ghost" id="giveFeedback" href="feedback.html" aria-label="Open feedback form">
+            Send Feedback
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> ReviewFlow — Built by Vintech. <span style="display:block;margin-top:6px;">Privacy-first. No spam. Just feedback.</span>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const reviewUrl = "https://g.page/r/CbiVnwImjaQKEBM/review";
+    const setupCardAction = (cardId, url) => {
+      document.getElementById(cardId)?.addEventListener('click', () => { window.location.href = url; });
+    };
+    setupCardAction('happyCard', reviewUrl);
+    setupCardAction('sadCard', 'feedback.html');
+  </script>
+</body>
+</html>
