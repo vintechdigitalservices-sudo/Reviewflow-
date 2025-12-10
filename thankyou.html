@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Thank You — ReviewFlow</title>
+
+  <!-- SEO -->
+  <meta name="description" content="Thank you for submitting your feedback to ReviewFlow. Your experience helps us improve." />
+  <meta name="keywords" content="ReviewFlow, feedback, thank you, Vintech" />
+  <meta name="robots" content="index,follow" />
+  <link rel="canonical" href="/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Thank You — ReviewFlow" />
+  <meta property="og:description" content="Thank you for submitting your feedback to Vintech through ReviewFlow." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy:#0A2540;
+      --orange:#FF7A00;
+      --muted:#6B7280;
+      --light:#FFFFFF;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body {
+      font-family:"Inter",sans-serif;
+      background: #F8F9FB;
+      color: var(--navy);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+      text-align:center;
+      animation:fadeIn 1s ease;
+    }
+
+    .logo {
+      width:70px;
+      height:70px;
+      margin-bottom:20px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--orange),#FF9A3A);
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-weight:700;
+      font-size:24px;
+      color:white;
+      box-shadow:0 6px 22px rgba(255,122,0,0.25);
+      animation:popIn 0.8s ease;
+    }
+
+    h1 {
+      font-size:32px;
+      color: var(--orange);
+      margin-bottom:12px;
+      animation:fadeInUp 1s ease;
+    }
+
+    p {
+      font-size:18px;
+      color: var(--muted);
+      max-width:360px;
+      animation:fadeInUp 1.2s ease;
+    }
+
+    a.btn-home {
+      margin-top:24px;
+      display:inline-block;
+      padding:12px 24px;
+      background:var(--navy);
+      color:white;
+      text-decoration:none;
+      border-radius:12px;
+      font-weight:600;
+      transition:0.2s;
+    }
+
+    a.btn-home:hover {
+      background:var(--orange);
+    }
+
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes popIn{from{transform:scale(0)}to{transform:scale(1)}}
+  </style>
+</head>
+<body>
+  <div class="logo">RF</div>
+  <h1>Thank You!</h1>
+  <p>Your feedback has been submitted successfully. We value your experience and will use it to improve our services.</p>
+  <a href="index.html" class="btn-home">Back to Home</a>
+</body>
+</html>
